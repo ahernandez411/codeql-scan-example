@@ -59,8 +59,8 @@ resource "azurerm_key_vault" "bad_example" {
 }
 
 resource "azurerm_key_vault_secret" "example" {
-  name = "secret_password"
-  value = var.another_password
+  name         = "secret_password"
+  value        = var.another_password
   key_vault_id = azurerm_key_vault.bad_example.id
 }
 
@@ -98,8 +98,8 @@ resource "azurerm_network_security_group" "example" {
 }
 
 resource "azurerm_app_service_plan" "example" {
-  name = "bad_exampleappserviceplan"
-  location = azurerm_resource_group.example.location
+  name                = "bad_exampleappserviceplan"
+  location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 }
 
