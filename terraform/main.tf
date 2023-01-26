@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_storage_account" "bad_example" {
-  name                      = "storageaccountname"
+  name                      = "badnamesa"
   resource_group_name       = azurerm_resource_group.example.name
   location                  = azurerm_resource_group.example.location
   account_tier              = "Standard"
@@ -49,7 +49,7 @@ resource "azurerm_kubernetes_cluster" "bad_example" {
 }
 
 resource "azurerm_key_vault" "bad_example" {
-  name                        = "examplekeyvault"
+  name                        = "bad_examplekeyvault"
   location                    = azurerm_resource_group.example.location
   enabled_for_disk_encryption = true
   purge_protection_enabled    = false
