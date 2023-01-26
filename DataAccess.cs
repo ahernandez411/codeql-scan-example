@@ -7,7 +7,7 @@ namespace CodeQLAlertTrigger
     public class DataAccess
     {
         private Dictionary<string, string> _users = new Dictionary<string, string>();
-        private const string SqlConnectionString = "Server=localhost;Database=SecurityDb;User Id=sa;Password=MyP@ssw0rd!;";
+        private const string SqlConnectionString = "Server=localhost;Database=SecurityDb;User Id=sa;Password=MyP@ssw0rd!2;";
 
         public DataAccess()
         {
@@ -16,7 +16,7 @@ namespace CodeQLAlertTrigger
         public bool IsValidUser(string username, string password)
         {
             PopulateUsers();
-            // Should access the database but we wont
+            // Should access the database but we won't
             if (!_users.ContainsKey(username))
             {
                 return false;

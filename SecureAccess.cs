@@ -5,8 +5,8 @@ namespace CodeQLAlertTrigger
 {
     public class SecureAccess
     {
-        private const string AdminUsername = "admin";
-        private const string AdminPassword = "P@ssword123" ;
+        private const string AdminUsername = "adminuser";
+        private const string AdminPassword = "P@ssword1234" ;
         private DataAccess _access = new DataAccess();
 
         public SecureAccess()
