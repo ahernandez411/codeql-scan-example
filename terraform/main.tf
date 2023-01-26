@@ -1,5 +1,8 @@
 # Example code taken from:
 # https://aquasecurity.github.io/tfsec/v0.61.3/checks/azure/compute/disable-password-authentication/
+locals {
+  root_password = "P@ssw0rd!1"
+}
 
 resource "azurerm_resource_group" "example" {
   name     = "my-rgrp"
@@ -36,7 +39,7 @@ resource "azurerm_virtual_machine" "bad_example" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    admin_password = "Password1234!"
+    admin_password = local.root_password
   }
 
   os_profile_linux_config {
@@ -53,6 +56,12 @@ resource "azurerm_key_vault" "bad_example" {
   location                    = azurerm_resource_group.example.location
   enabled_for_disk_encryption = true
   purge_protection_enabled    = false
+}
+
+resource "azurerm_key_vault_secret" "example" {
+  name = "secret_password"
+  value = var.another_password
+  key_vault_id = azurerm_key_vault.bad_example.id
 }
 
 resource "azurerm_monitor_log_profile" "bad_example" {
@@ -86,4 +95,24 @@ resource "azurerm_network_security_group" "example" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+}
+
+resource "azurerm_app_service_plan" "example" {
+  name = "bad_exampleappserviceplan"
+  location = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+}
+
+resource "azurerm_app_service" "bad_example" {
+  name                = "example-app-service"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  app_service_plan_id = azurerm_app_service_plan.example.id
+}
+
+resource "azurerm_function_app" "bad_example" {
+  name                = "example-function-app"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  app_service_plan_id = azurerm_app_service_plan.example.id
 }
